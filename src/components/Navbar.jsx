@@ -155,14 +155,14 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {isOpen && (
           <motion.div
-            className="md:hidden pb-4 space-y-3"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden absolute top-full left-0 right-0 bg-white shadow-2xl border-t border-gray-100 px-4 py-4 space-y-4 z-50"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
           >
             <button 
               onClick={handleLogoClick} 
-              className={`block w-full text-left text-sm bg-transparent border-none cursor-pointer transition ${
+              className={`block w-full text-left text-base bg-transparent border-none cursor-pointer transition py-2 ${
                 isActive('home') 
                   ? 'text-brand-red font-semibold' 
                   : 'text-gray-700 hover:text-brand-red'
@@ -172,7 +172,8 @@ export default function Navbar() {
             </button>
             <a 
               href="#services" 
-              className={`block text-sm transition ${
+              onClick={() => setIsOpen(false)}
+              className={`block text-base transition py-2 ${
                 isActive('services') 
                   ? 'text-brand-red font-semibold' 
                   : 'text-gray-700 hover:text-brand-red'
@@ -182,7 +183,8 @@ export default function Navbar() {
             </a>
             <a 
               href="#vehicles" 
-              className={`block text-sm transition ${
+              onClick={() => setIsOpen(false)}
+              className={`block text-base transition py-2 ${
                 isActive('vehicles') 
                   ? 'text-brand-red font-semibold' 
                   : 'text-gray-700 hover:text-brand-red'
@@ -192,7 +194,8 @@ export default function Navbar() {
             </a>
             <a 
               href="#why-us" 
-              className={`block text-sm transition ${
+              onClick={() => setIsOpen(false)}
+              className={`block text-base transition py-2 ${
                 isActive('why-us') 
                   ? 'text-brand-red font-semibold' 
                   : 'text-gray-700 hover:text-brand-red'
@@ -202,7 +205,8 @@ export default function Navbar() {
             </a>
             <a 
               href="#faq" 
-              className={`block text-sm transition ${
+              onClick={() => setIsOpen(false)}
+              className={`block text-base transition py-2 ${
                 isActive('faq') 
                   ? 'text-brand-red font-semibold' 
                   : 'text-gray-700 hover:text-brand-red'
@@ -212,10 +216,12 @@ export default function Navbar() {
             </a>
             <motion.a
               href="https://wa.me/919624742600"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500 text-white text-sm"
-              whileHover={{ scale: 1.05 }}
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-3 mt-2 rounded-lg bg-green-500 text-white font-semibold text-base"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <FaWhatsapp />
+              <FaWhatsapp size={20} />
               WhatsApp Us
             </motion.a>
           </motion.div>
