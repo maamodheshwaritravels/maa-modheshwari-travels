@@ -30,7 +30,7 @@ function App() {
   }, [])
 
   return (
-    <div className="bg-white">
+    <div className="bg-white overflow-x-hidden w-full max-w-full">
       <Navbar />
       <Hero />
       <Services />
