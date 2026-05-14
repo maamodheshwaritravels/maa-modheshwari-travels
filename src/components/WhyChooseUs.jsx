@@ -24,9 +24,9 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-red mb-4 sm:mb-6">Why Choose Us?</h2>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-red mb-4 sm:mb-6">Why Surat Trusts Us</h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-6 sm:mb-8">
-              Trusted by hundreds of satisfied customers. We deliver excellence in every journey.
+              With over 10 years of experience, we provide unmatched reliability, comfort, and professional service for every passenger.
             </p>
 
             <div className="space-y-3 sm:space-y-4">

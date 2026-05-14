@@ -31,11 +31,11 @@ export default function Hero() {
             </motion.div>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-red mb-6 leading-tight">
-              Premium Travel Experience
+              Surat's Premier <br className="hidden sm:block" />Taxi & Travel Service
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-8 leading-relaxed">
-              Fast, reliable, and luxurious airport transfers, taxi services, and vehicle rentals in Surat. Your journey, our priority.
+              Experience safe, reliable, and luxurious journeys. Specializing in on-time Mumbai Airport transfers, city tours, and premium vehicle rentals. Your comfort is our guarantee.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
