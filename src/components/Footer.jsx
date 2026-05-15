@@ -5,7 +5,7 @@ import { FiHeart } from 'react-icons/fi'
 import { FaFacebook } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa'
 import { FaWhatsapp } from 'react-icons/fa'
-import logoImg from '../logo.jpeg'
+import logoImg from '../logo.jpg'
 import { useState } from 'react'
 
 export default function Footer() {

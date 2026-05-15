@@ -4,7 +4,7 @@ import { FiMenu } from 'react-icons/fi'
 import { FiX } from 'react-icons/fi'
 import { FiPhone } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
-import logoImg from '../logo.jpeg'
+import logoImg from '../logo.jpg'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
