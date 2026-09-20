@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -26,6 +26,19 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
+}
+
+/* ===== Button System (3 variants) ===== */
+.btn-primary {
+  @apply rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold hover:shadow-xl transition text-sm lg:text-base;
+}
+
+.btn-secondary {
+  @apply rounded-lg border-2 border-brand-red text-brand-red font-semibold hover:bg-brand-red hover:text-white transition text-sm lg:text-base;
+}
+
+.btn-ghost {
+  @apply rounded-lg bg-transparent text-gray-600 font-semibold hover:text-brand-red transition text-sm lg:text-base;
 }
 
 /* Glassmorphism */
@@ -73,4 +86,11 @@ h1, h2, h3, h4, h5, h6 {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #B8860B;
+}
+
+/* ===== Elfsight Widget Overrides (Issue #5) ===== */
+/* Hide redundant internal heading from the reviews widget */
+[class*="elfsight"] [class*="heading"],
+[class*="elfsight"] [class*="title-text"] {
+  display: none !important;
 }

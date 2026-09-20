@@ -33,7 +33,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-start">
           {/* Contact Info */}
           <motion.div
-            className="space-y-4 sm:space-y-6 md:space-y-8"
+            className="space-y-4 sm:space-y-5 md:space-y-6"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -89,8 +89,8 @@ export default function Contact() {
             <motion.a
               href="https://wa.me/919624742600"
               target="_blank"
-              className="flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold hover:shadow-lg transition text-sm sm:text-base"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl border-2 border-green-500 text-green-600 font-semibold hover:bg-green-500 hover:text-white transition text-sm sm:text-base"
+              whileHover={{ scale: 1.02 }}
             >
               <FaWhatsapp size={20} />
               Chat on WhatsApp
@@ -157,13 +157,14 @@ export default function Contact() {
 
               <motion.button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold hover:shadow-lg transition text-sm sm:text-base"
+                className="btn-primary w-full flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <FaWhatsapp size={18} />
                 Send Message via WhatsApp
               </motion.button>
+              <p className="text-xs text-gray-500 text-center mt-1">Your name and message will open a pre-filled WhatsApp chat</p>
             </form>
           </motion.div>
         </div>

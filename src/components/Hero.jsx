@@ -1,6 +1,5 @@
 ﻿import { motion } from 'framer-motion'
-import { FiArrowRight } from 'react-icons/fi'
-import { FiPhone } from 'react-icons/fi'
+import { FiArrowRight, FiPhone, FiNavigation, FiTruck, FiUsers } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 
 export default function Hero() {
@@ -13,7 +12,7 @@ export default function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[calc(100vh-80px)] py-12 lg:py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start min-h-[calc(100vh-80px)] py-12 lg:py-24">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -22,12 +21,13 @@ export default function Hero() {
             className="order-1"
           >
             <motion.div
-              className="inline-block px-4 py-2 rounded-full bg-brand-red/10 text-brand-red font-semibold text-sm mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-red/10 text-brand-red font-semibold text-sm mb-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              ✈️ Bombay Airport Specialist
+              <FiNavigation size={14} />
+              Bombay Airport Specialist
             </motion.div>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-red mb-8 leading-tight">
@@ -42,7 +42,7 @@ export default function Hero() {
               <motion.a
                 href="https://wa.me/919624742600"
                 target="_blank"
-                className="flex items-center justify-center gap-2 px-6 lg:px-8 py-3 lg:py-4 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold hover:shadow-xl transition text-sm lg:text-base"
+                className="btn-primary flex items-center justify-center gap-2 px-6 lg:px-8 py-3 lg:py-4"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -53,7 +53,7 @@ export default function Hero() {
 
               <motion.a
                 href="tel:9624742600"
-                className="flex items-center justify-center gap-2 px-6 lg:px-8 py-3 lg:py-4 rounded-lg border-2 border-brand-red text-brand-red font-semibold hover:bg-brand-red hover:text-white transition text-sm lg:text-base"
+                className="btn-secondary flex items-center justify-center gap-2 px-6 lg:px-8 py-3 lg:py-4"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -73,34 +73,40 @@ export default function Hero() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
               {/* Card 1 */}
               <motion.div
-                className="glass rounded-2xl p-5 shadow-md"
+                className="glass rounded-2xl p-5 shadow-md flex flex-col"
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="text-3xl mb-3">✈️</div>
-                <h2 className="font-semibold text-lg text-brand-red mb-2">Airport Transfers</h2>
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-3">
+                  <FiNavigation size={20} className="text-white" />
+                </div>
+                <h2 className="font-semibold text-lg text-brand-red mb-2 min-h-[3rem] flex items-center">Airport Transfers</h2>
                 <p className="text-sm text-gray-600">Quick pickups & drop-offs at Bombay Airport</p>
               </motion.div>
 
               {/* Card 2 */}
               <motion.div
-                className="glass rounded-2xl p-5 shadow-md"
+                className="glass rounded-2xl p-5 shadow-md flex flex-col"
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="text-3xl mb-3">🚗</div>
-                <h2 className="font-semibold text-lg text-brand-red mb-2">Luxury Vehicles</h2>
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mb-3">
+                  <FiTruck size={20} className="text-white" />
+                </div>
+                <h2 className="font-semibold text-lg text-brand-red mb-2 min-h-[3rem] flex items-center">Luxury Vehicles</h2>
                 <p className="text-sm text-gray-600">A.C. & Non-A.C. cars for all occasions</p>
               </motion.div>
 
               {/* Card 3 */}
               <motion.div
-                className="glass rounded-2xl p-5 shadow-md"
+                className="glass rounded-2xl p-5 shadow-md flex flex-col"
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="text-3xl mb-3">🚌</div>
-                <h2 className="font-semibold text-lg text-brand-red mb-2">Bus & Tempo</h2>
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mb-3">
+                  <FiUsers size={20} className="text-white" />
+                </div>
+                <h2 className="font-semibold text-lg text-brand-red mb-2 min-h-[3rem] flex items-center">Bus & Tempo</h2>
                 <p className="text-sm text-gray-600">Group travel for corporate & leisure</p>
               </motion.div>
             </div>

@@ -31,7 +31,7 @@ const imageMetadata = {
   'tempo18.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Group' },
 }
 
-// Duplicates to exclude (Issue #15): tempo19 ≈ tempo16, tempo20 ≈ tempo15
+// Duplicates to exclude
 const duplicateFiles = ['tempo19.jpg', 'tempo20.jpg']
 
 // Build image array with metadata, excluding duplicates
@@ -39,7 +39,7 @@ const allImages = Object.entries(imageModules)
   .map(([path, module]) => {
     const filename = path.split('/').pop()
     if (duplicateFiles.includes(filename)) return null
-    const meta = imageMetadata[filename] || { category: 'Other', label: `Vehicle` }
+    const meta = imageMetadata[filename] || { category: 'Other', label: 'Vehicle' }
     return { src: module.default, filename, ...meta }
   })
   .filter(Boolean)
@@ -119,57 +119,58 @@ export default function VehicleGallery() {
           </div>
         </motion.div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4 md:gap-6">
+        {/* Gallery Grid - Reduced to 3-4 columns for better readability */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {displayedImages.map((image, index) => (
             <motion.div
               key={image.filename}
-              className="relative overflow-hidden rounded-lg cursor-pointer group h-40 sm:h-48"
+              className="overflow-hidden rounded-xl cursor-pointer group"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: (index % 5) * 0.05 }}
-              whileHover={{ scale: 1.05 }}
+              transition={{ delay: (index % 4) * 0.05 }}
+              whileHover={{ scale: 1.03 }}
               onClick={() => openModal(filteredImages.indexOf(image))}
             >
-              <img
-                src={image.src}
-                alt={image.label}
-                className="w-full h-full object-cover group-hover:brightness-75 transition"
-              />
-              {/* Caption Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-2 sm:px-3 sm:py-3">
-                <p className="text-white text-xs sm:text-sm font-medium truncate">{image.label}</p>
-                <p className="text-white/70 text-[10px] sm:text-xs">{image.category}</p>
+              {/* Image */}
+              <div className="relative h-44 sm:h-52 md:h-56 overflow-hidden">
+                <img
+                  src={image.src}
+                  alt={image.label}
+                  className="w-full h-full object-cover group-hover:brightness-90 transition"
+                />
+              </div>
+              {/* Caption Below Image */}
+              <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 border border-gray-100 border-t-0 rounded-b-xl">
+                <p className="text-gray-800 text-sm sm:text-base font-medium truncate">{image.label}</p>
+                <p className="text-gray-500 text-xs sm:text-sm">{image.category}</p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* View More Button */}
-        {hasMore && (
-          <div className="text-center mt-8">
+        {/* View More / Show Less Buttons - Consistent pill style */}
+        <div className="text-center mt-8">
+          {hasMore && (
             <motion.button
               onClick={() => setShowAll(true)}
-              className="px-8 py-3 rounded-lg bg-brand-red text-white font-semibold hover:shadow-lg transition text-sm sm:text-base"
+              className="px-8 py-3 rounded-full bg-brand-red text-white font-semibold hover:shadow-lg transition text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               View All {filteredImages.length} Vehicles
             </motion.button>
-          </div>
-        )}
+          )}
 
-        {showAll && filteredImages.length > INITIAL_SHOW_COUNT && (
-          <div className="text-center mt-6">
+          {showAll && filteredImages.length > INITIAL_SHOW_COUNT && (
             <button
               onClick={() => setShowAll(false)}
-              className="text-brand-red font-semibold text-sm hover:underline transition"
+              className="px-8 py-3 rounded-full border-2 border-brand-red text-brand-red font-semibold hover:bg-brand-red hover:text-white transition text-sm sm:text-base"
             >
               Show Less
             </button>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Modal */}
         {selectedImage && (
