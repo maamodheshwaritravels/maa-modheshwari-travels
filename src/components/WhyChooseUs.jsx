@@ -1,6 +1,5 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import { FiCheckCircle } from 'react-icons/fi'
-import { FiCheckCircle as CheckIcon } from 'react-icons/fi'
 
 const reasons = [
   'Professional & Experienced Drivers',
@@ -15,16 +14,16 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-us" className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-brand-cream to-white">
+    <section id="why-us" className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-brand-cream to-white overflow-visible">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-start">
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-red mb-4 sm:mb-6">Why Surat Trusts Us</h2>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-red mb-4 sm:mb-6 tracking-tight">Why Surat Trusts Us</h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-6 sm:mb-8">
               With over 10 years of experience, we provide unmatched reliability, comfort, and professional service for every passenger.
             </p>
@@ -48,7 +47,7 @@ export default function WhyChooseUs() {
 
           {/* Right Stats */}
           <motion.div
-            className="space-y-4 sm:space-y-6"
+            className="flex flex-col justify-between h-full space-y-4 sm:space-y-6"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -61,7 +60,7 @@ export default function WhyChooseUs() {
             ].map((stat, idx) => (
               <motion.div
                 key={idx}
-                className="glass rounded-lg sm:rounded-2xl p-4 sm:p-6 md:p-8 text-center hover:shadow-xl transition"
+                className="glass rounded-lg sm:rounded-2xl p-4 sm:p-6 md:p-8 text-center hover:shadow-xl transition flex-1 flex flex-col items-center justify-center"
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-red mb-2">{stat.number}</div>

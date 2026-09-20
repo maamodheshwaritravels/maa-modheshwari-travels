@@ -1,21 +1,71 @@
-import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+﻿import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { FiChevronLeft, FiChevronRight, FiX } from 'react-icons/fi'
 
 // Dynamically import all vehicle images from assets/vehicles folder
-// This will automatically include ANY new images added to the folder
 const imageModules = import.meta.glob('../assets/vehicles/*.{jpg,jpeg,png,JPG,JPEG,PNG}', { eager: true })
 
-// Convert modules to array of image URLs
-const allImages = Object.values(imageModules).map((module) => module.default).sort()
+// Image metadata map: filename -> { category, label }
+const imageMetadata = {
+  '1.jpeg': { category: 'Cars', label: 'Luxury Sedan – AC' },
+  '2.jpeg': { category: 'Cars', label: 'Innova Crysta – 7 Seater' },
+  '3.jpeg': { category: 'Cars', label: 'Premium SUV – AC' },
+  '4.jpeg': { category: 'Cars', label: 'Comfort Sedan – AC' },
+  'tempo01.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – 17 Seater' },
+  'tempo02.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Interior' },
+  'tempo03.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – 12 Seater' },
+  'tempo04.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Exterior' },
+  'tempo05.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Side View' },
+  'tempo06.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – AC' },
+  'tempo07.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Deluxe' },
+  'tempo08.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Standard' },
+  'tempo09.jpg': { category: 'Bus', label: 'Mini Bus – 20 Seater' },
+  'tempo10.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Compact' },
+  'tempo11.jpg': { category: 'Bus', label: 'Luxury Bus – 35 Seater' },
+  'tempo12.jpg': { category: 'Bus', label: 'Tourist Bus – 45 Seater' },
+  'tempo13.jpg': { category: 'Bus', label: 'AC Bus – Interior' },
+  'tempo14.jpg': { category: 'Bus', label: 'Coach Bus – Premium' },
+  'tempo15.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Premium' },
+  'tempo16.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Fleet' },
+  'tempo17.jpg': { category: 'Bus', label: 'Bus – Exterior View' },
+  'tempo18.jpg': { category: 'Tempo Traveller', label: 'Tempo Traveller – Group' },
+}
+
+// Duplicates to exclude (Issue #15): tempo19 ≈ tempo16, tempo20 ≈ tempo15
+const duplicateFiles = ['tempo19.jpg', 'tempo20.jpg']
+
+// Build image array with metadata, excluding duplicates
+const allImages = Object.entries(imageModules)
+  .map(([path, module]) => {
+    const filename = path.split('/').pop()
+    if (duplicateFiles.includes(filename)) return null
+    const meta = imageMetadata[filename] || { category: 'Other', label: `Vehicle` }
+    return { src: module.default, filename, ...meta }
+  })
+  .filter(Boolean)
+  .sort((a, b) => a.filename.localeCompare(b.filename))
+
+// Extract unique categories
+const categories = ['All', ...new Set(allImages.map(img => img.category))]
+
+const INITIAL_SHOW_COUNT = 8
 
 export default function VehicleGallery() {
   const [selectedImage, setSelectedImage] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [activeCategory, setActiveCategory] = useState('All')
+  const [showAll, setShowAll] = useState(false)
+
+  const filteredImages = activeCategory === 'All'
+    ? allImages
+    : allImages.filter(img => img.category === activeCategory)
+
+  const displayedImages = showAll ? filteredImages : filteredImages.slice(0, INITIAL_SHOW_COUNT)
+  const hasMore = filteredImages.length > INITIAL_SHOW_COUNT && !showAll
 
   const openModal = (index) => {
     setCurrentIndex(index)
-    setSelectedImage(allImages[index])
+    setSelectedImage(filteredImages[index])
   }
 
   const closeModal = () => {
@@ -23,15 +73,20 @@ export default function VehicleGallery() {
   }
 
   const goToPrevious = () => {
-    const newIndex = (currentIndex - 1 + allImages.length) % allImages.length
+    const newIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length
     setCurrentIndex(newIndex)
-    setSelectedImage(allImages[newIndex])
+    setSelectedImage(filteredImages[newIndex])
   }
 
   const goToNext = () => {
-    const newIndex = (currentIndex + 1) % allImages.length
+    const newIndex = (currentIndex + 1) % filteredImages.length
     setCurrentIndex(newIndex)
-    setSelectedImage(allImages[newIndex])
+    setSelectedImage(filteredImages[newIndex])
+  }
+
+  const handleCategoryChange = (cat) => {
+    setActiveCategory(cat)
+    setShowAll(false)
   }
 
   return (
@@ -44,33 +99,77 @@ export default function VehicleGallery() {
           viewport={{ once: true }}
         >
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-red mb-3 sm:mb-4">Our Fleet Gallery</h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600">Explore our luxury vehicles collection</p>
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">Explore our luxury vehicles collection</p>
+
+          {/* Category Filter Tabs */}
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => handleCategoryChange(cat)}
+                className={`px-4 sm:px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  activeCategory === cat
+                    ? 'bg-brand-red text-white shadow-lg'
+                    : 'bg-white text-gray-600 border border-gray-300 hover:border-brand-red hover:text-brand-red'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4 md:gap-6">
-          {allImages.map((image, index) => (
+          {displayedImages.map((image, index) => (
             <motion.div
-              key={index}
+              key={image.filename}
               className="relative overflow-hidden rounded-lg cursor-pointer group h-40 sm:h-48"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: (index % 5) * 0.05 }}
               whileHover={{ scale: 1.05 }}
-              onClick={() => openModal(index)}
+              onClick={() => openModal(filteredImages.indexOf(image))}
             >
               <img
-                src={image}
-                alt={`Vehicle ${index + 1}`}
+                src={image.src}
+                alt={image.label}
                 className="w-full h-full object-cover group-hover:brightness-75 transition"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <span className="text-white font-semibold">View</span>
+              {/* Caption Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-2 sm:px-3 sm:py-3">
+                <p className="text-white text-xs sm:text-sm font-medium truncate">{image.label}</p>
+                <p className="text-white/70 text-[10px] sm:text-xs">{image.category}</p>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* View More Button */}
+        {hasMore && (
+          <div className="text-center mt-8">
+            <motion.button
+              onClick={() => setShowAll(true)}
+              className="px-8 py-3 rounded-lg bg-brand-red text-white font-semibold hover:shadow-lg transition text-sm sm:text-base"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View All {filteredImages.length} Vehicles
+            </motion.button>
+          </div>
+        )}
+
+        {showAll && filteredImages.length > INITIAL_SHOW_COUNT && (
+          <div className="text-center mt-6">
+            <button
+              onClick={() => setShowAll(false)}
+              className="text-brand-red font-semibold text-sm hover:underline transition"
+            >
+              Show Less
+            </button>
+          </div>
+        )}
 
         {/* Modal */}
         {selectedImage && (
@@ -96,15 +195,15 @@ export default function VehicleGallery() {
               </button>
 
               {/* Image */}
-              <div className="flex-1 bg-black rounded-t-lg sm:rounded-t-lg overflow-hidden">
+              <div className="flex-1 bg-black rounded-t-lg overflow-hidden">
                 <img
-                  src={selectedImage}
-                  alt={`Vehicle ${currentIndex + 1}`}
+                  src={selectedImage.src}
+                  alt={selectedImage.label}
                   className="w-full h-full object-contain"
                 />
               </div>
 
-              {/* Navigation */}
+              {/* Navigation & Caption */}
               <div className="bg-gray-900 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-b-lg flex items-center justify-between">
                 <button
                   onClick={goToPrevious}
@@ -113,8 +212,9 @@ export default function VehicleGallery() {
                   <FiChevronLeft size={24} />
                 </button>
 
-                <div className="text-xs sm:text-sm">
-                  {currentIndex + 1} / {allImages.length}
+                <div className="text-center">
+                  <p className="text-sm sm:text-base font-medium">{selectedImage.label}</p>
+                  <p className="text-xs text-gray-400">{currentIndex + 1} / {filteredImages.length}</p>
                 </div>
 
                 <button

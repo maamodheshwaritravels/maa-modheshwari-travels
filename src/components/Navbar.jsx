@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { FiMenu } from 'react-icons/fi'
 import { FiX } from 'react-icons/fi'
@@ -16,16 +16,35 @@ export default function Navbar() {
       setScrolled(window.scrollY > 50)
       
       // Determine which section is currently in view
+      // Only highlight the section whose top is closest to (but above) the viewport top
       const sections = ['hero', 'services', 'vehicles', 'why-us', 'faq']
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          if (rect.top <= 100) {
-            setActiveSection(section)
+      let currentActive = 'home'
+      
+      if (window.scrollY < 100) {
+        currentActive = 'home'
+      } else {
+        let closestDistance = Infinity
+        for (const section of sections) {
+          const element = document.getElementById(section)
+          if (element) {
+            const rect = element.getBoundingClientRect()
+            // Section is at or above viewport top (with 150px offset for navbar)
+            if (rect.top <= 150 && rect.bottom > 0) {
+              const distance = Math.abs(rect.top - 150)
+              if (distance < closestDistance) {
+                closestDistance = distance
+                currentActive = section
+              }
+            }
           }
         }
+        // Map 'hero' section id to 'home' nav item
+        if (currentActive === 'hero') {
+          currentActive = 'home'
+        }
       }
+      
+      setActiveSection(currentActive)
     }
     
     window.addEventListener('scroll', handleScroll)
@@ -39,7 +58,6 @@ export default function Navbar() {
   }
 
   const isActive = (section) => {
-    if (section === 'home') return activeSection === 'home' || window.scrollY < 100
     return activeSection === section
   }
 
@@ -64,7 +82,7 @@ export default function Navbar() {
             <img 
               src={logoImg}
               alt="Maa Modheshwari Travels Logo"
-              className="h-12 sm:h-16 md:h-20 w-auto object-contain"
+              className="h-12 sm:h-16 md:h-20 w-auto object-contain mix-blend-multiply"
             />
           </motion.button>
 

@@ -1,9 +1,7 @@
+﻿import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiPhone } from 'react-icons/fi'
-import { FiMapPin } from 'react-icons/fi'
-import { FiClock } from 'react-icons/fi'
+import { FiPhone, FiMapPin, FiClock } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
-import { useState } from 'react'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -32,7 +30,7 @@ export default function Contact() {
           <p className="text-base sm:text-lg md:text-xl text-gray-600">Ready to book your journey?</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-start">
           {/* Contact Info */}
           <motion.div
             className="space-y-4 sm:space-y-6 md:space-y-8"
@@ -40,7 +38,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-xl sm:text-2xl font-serif font-bold text-brand-red mb-4 sm:mb-6 md:mb-8">Contact Information</h3>
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-brand-red mb-4 sm:mb-6">Contact Information</h3>
 
             <motion.a
               href="tel:9624742600"
@@ -101,7 +99,7 @@ export default function Contact() {
 
           {/* Contact Form */}
           <motion.div
-            className="glass rounded-lg sm:rounded-2xl p-4 sm:p-6 md:p-8"
+            className="glass rounded-lg sm:rounded-2xl pt-4 sm:pt-6 md:pt-8 px-4 sm:px-6 md:px-8 pb-4 sm:pb-6"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -109,44 +107,61 @@ export default function Contact() {
             <h3 className="text-xl sm:text-2xl font-serif font-bold text-brand-red mb-4 sm:mb-6">Send Us a Message</h3>
 
             <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-              <input
-                type="text"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red transition text-sm sm:text-base"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red transition text-sm sm:text-base"
-                required
-              />
-              <input
-                type="tel"
-                placeholder="Your Phone"
-                value={formData.phone}
-                onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red transition text-sm sm:text-base"
-              />
-              <textarea
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={(e) => setFormData({...formData, message: e.target.value})}
-                rows="4"
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red transition resize-none text-sm sm:text-base"
-                required
-              ></textarea>
+              <div>
+                <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  placeholder="Enter your name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red transition text-sm sm:text-base"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red transition text-sm sm:text-base"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-phone" className="block text-sm font-medium text-gray-700 mb-1">Your Phone</label>
+                <input
+                  id="contact-phone"
+                  type="tel"
+                  placeholder="Enter your phone number"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red transition text-sm sm:text-base"
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
+                <textarea
+                  id="contact-message"
+                  placeholder="Type your message here..."
+                  value={formData.message}
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  rows="4"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-red transition resize-none text-sm sm:text-base"
+                  required
+                ></textarea>
+              </div>
 
               <motion.button
                 type="submit"
-                className="w-full px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-brand-red to-red-600 text-white font-semibold hover:shadow-lg transition text-sm sm:text-base"
+                className="w-full flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold hover:shadow-lg transition text-sm sm:text-base"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
+                <FaWhatsapp size={18} />
                 Send Message via WhatsApp
               </motion.button>
             </form>
