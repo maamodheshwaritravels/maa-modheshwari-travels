@@ -177,7 +177,7 @@ export default function Contact() {
           viewport={{ once: true }}
         >
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.1242314396524!2d72.82388342346822!3d21.17689908559803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04ecafbffffff%3A0x8d8c8c8c8c8c8c8c!2sRaghuvir%20Society%2C%20Opp%20Old%20Bombay%20Market%2C%20Umbarwada%2C%20Surat%2C%20Gujarat%20395010!5e0!3m2!1sen!2sin!4v1715862234567"
+            src="https://maps.google.com/maps?q=Maa%20Modheshwari%20Travels%20-%20Surat,%20Raghuveer%20soc&t=&z=15&ie=UTF8&iwloc=&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}
